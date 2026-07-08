@@ -68,7 +68,7 @@ chmod a+x /home/$(whoami)/.local/SDG-VOX/vox.sh
 # Docs and tips are deployed to versioned subdirectories under
 # ~/.local/docs/ and ~/.local/tips/ so they don't collide with other
 # SDG modules.
-mkdir -p /home/$(whoami)/.local/docs /home/$(whoami)/.local/tips
+mkdir -p /home/$(whoami)/.local/docs/SDG-VOX /home/$(whoami)/.local/tips/SDG-VOX
 cp -r $WORKDIR/docs/* /home/$(whoami)/.local/docs/SDG-VOX
 cp -r $WORKDIR/tips/* /home/$(whoami)/.local/tips/SDG-VOX
 
