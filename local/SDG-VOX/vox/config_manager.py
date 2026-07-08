@@ -5,15 +5,16 @@ import json
 from pathlib import Path
 from .models import Config, GraphNode, ImmediateTrigger, AffixRule
 
-INSTALL_DIR = Path.home() / ".config" / "sdgos" / "vox"
+LOCAL_DIR = Path.home() / ".local" / "SDG-VOX"
+CONFIG_DIR = Path.home() / ".config" / "SDG-VOX"
 
 
 def default_config_path() -> Path:
-    return INSTALL_DIR / "config.json"
+    return CONFIG_DIR / "config.json"
 
 
 def models_dir() -> Path:
-    d = INSTALL_DIR / "models"
+    d = LOCAL_DIR / "models"
     d.mkdir(exist_ok=True)
     return d
 
@@ -100,7 +101,6 @@ def _migrate_old_format(data: dict) -> dict:
         return data
     old_nodes = tree_data.get("nodes", {})
 
-    # Detect format: if any non-root node is missing the "trigger" key, migrate.
     needs_migrate = any(
         isinstance(v, dict) and "trigger" not in v and v.get("type") != "root"
         for v in old_nodes.values()
@@ -112,14 +112,12 @@ def _migrate_old_format(data: dict) -> dict:
     for name, ndata in old_nodes.items():
         if not isinstance(ndata, dict):
             continue
-        # Extract base fields.
         base_type = ndata.get("type", "branch")
         command = ndata.get("command", "")
         text_capture = ndata.get("text_capture", False)
         pos_x = ndata.get("pos_x")
         pos_y = ndata.get("pos_y")
 
-        # Connections could be list of Edge dicts or list of strings.
         raw_cons = ndata.get("connections", [])
         if raw_cons and isinstance(raw_cons[0], dict):
             connections = [e.get("target", "") for e in raw_cons]
@@ -128,12 +126,10 @@ def _migrate_old_format(data: dict) -> dict:
             connections = raw_cons
             trigger = ""
 
-        # Preserve existing trigger if the node already has one.
         existing_trigger = ndata.get("trigger", None)
         if existing_trigger is not None:
             trigger = existing_trigger
         elif base_type not in ("exec", "shell_exec", "type"):
-            # Only branch nodes need a trigger word — derive from name.
             if raw_cons and isinstance(raw_cons[0], dict):
                 trigger = raw_cons[0].get("trigger", name) if raw_cons else name
             elif connections:
@@ -157,7 +153,6 @@ def _migrate_old_format(data: dict) -> dict:
             new_node["pos_y"] = pos_y
         new_nodes[name] = new_node
 
-    # Migrate old single root to a root-type node named "default".
     old_root = tree_data.get("root", [])
     if isinstance(old_root, list) and old_root:
         if isinstance(old_root[0], dict):
