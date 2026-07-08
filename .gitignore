@@ -1,0 +1,8 @@
+# Model files (too large for git)
+local/SDG-VOX/models/
+*.bin
+*.zip
+
+# Python cache
+__pycache__/
+*.pyc
