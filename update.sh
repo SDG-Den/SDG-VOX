@@ -22,9 +22,9 @@ sudo ln -sf /home/$(whoami)/.local/SDG-VOX/vox.sh /usr/bin/sdgvox
 # --------------------------------------------------------------------------
 rm -rf /home/$(whoami)/.local/docs/SDG-VOX
 rm -rf /home/$(whoami)/.local/tips/SDG-VOX
-mkdir -p /home/$(whoami)/.local/docs /home/$(whoami)/.local/tips
-cp -r /home/$(whoami)/.cache/SDG-PKG/sdg-vox/docs/* /home/$(whoami)/.local/docs
-cp -r /home/$(whoami)/.cache/SDG-PKG/sdg-vox/tips/* /home/$(whoami)/.local/tips
+mkdir -p /home/$(whoami)/.local/docs/SDG-VOX /home/$(whoami)/.local/tips/SDG-VOX
+cp -r /home/$(whoami)/.cache/SDG-PKG/sdg-vox/docs/* /home/$(whoami)/.local/docs/SDG-VOX
+cp -r /home/$(whoami)/.cache/SDG-PKG/sdg-vox/tips/* /home/$(whoami)/.local/tips/SDG-VOX
 
 # --------------------------------------------------------------------------
 # 3. Redeploy desktop entry
