@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 import logging
+import shutil
 import signal
+import subprocess
 from pathlib import Path
 
 import gi
@@ -46,6 +48,21 @@ def run_daemon(config_path: Path, headless: bool = False) -> None:
     if not model_path.is_file():
         log.error("Whisper model not found at %s — run install.sh or download manually", model_path)
         return
+
+    # ── ydotoold: start if not already running ────────────────────────────
+    if shutil.which("ydotoold"):
+        try:
+            subprocess.run(["pgrep", "-x", "ydotoold"], check=True,
+                           capture_output=True)
+            log.info("ydotoold already running")
+        except subprocess.CalledProcessError:
+            log.info("starting ydotoold...")
+            subprocess.Popen(["ydotoold"],
+                             stdout=subprocess.DEVNULL,
+                             stderr=subprocess.DEVNULL)
+    else:
+        log.warning("ydotoold not found — type actions will fail")
+    # ───────────────────────────────────────────────────────────────────────
 
     overlay = None
     if not headless:
