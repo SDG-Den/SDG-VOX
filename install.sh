@@ -25,7 +25,7 @@ cp "$WORKDIR/other/vox-config.desktop" "$HOME/.local/share/applications/vox-conf
 sudo ln -sf "$HOME/.local/SDG-VOX/vox.sh" /usr/bin/sdgvox
 
 # Whisper model download
-MODELS_DIR="$HOME/.local/SDG-VOX/models"
+MODELS_DIR="$HOME/.cache/SDG-VOX/models"
 mkdir -p "$MODELS_DIR"
 
 if [ ! -f "$MODELS_DIR/ggml-medium.en.bin" ]; then

@@ -18,5 +18,8 @@ rm -rf $HOME/.local/tips/SDG-VOX
 # Remove the desktop entry
 rm -f $HOME/.local/share/applications/vox-config.desktop
 
+# Remove cached data (model downloads, etc.)
+rm -rf $HOME/.cache/SDG-VOX
+
 # Remove the /usr/bin/sdgvox symlink created during install
 sudo unlink /usr/bin/sdgvox

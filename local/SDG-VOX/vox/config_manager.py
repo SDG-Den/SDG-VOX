@@ -7,6 +7,7 @@ from .models import Config, GraphNode, ImmediateTrigger, AffixRule
 
 LOCAL_DIR = Path.home() / ".local" / "SDG-VOX"
 CONFIG_DIR = Path.home() / ".config" / "SDG-VOX"
+CACHE_DIR = Path.home() / ".cache" / "SDG-VOX"
 
 
 def default_config_path() -> Path:
@@ -14,7 +15,7 @@ def default_config_path() -> Path:
 
 
 def models_dir() -> Path:
-    d = LOCAL_DIR / "models"
+    d = CACHE_DIR / "models"
     d.mkdir(exist_ok=True)
     return d
 
