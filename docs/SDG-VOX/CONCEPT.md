@@ -1,15 +1,20 @@
-the idea is to have a program that can run in either daemon mode (mith just an overlay to see what you're saying) or in GUI mode (for configuration) that does voice-to-commands.
+# vox concept
 
-the program should work like a "hotkey binding" program, and should have the following:
+A program that runs in either daemon mode (with a transparent overlay showing
+transcriptions) or GUI mode (for configuration) that does voice-to-commands.
 
+The program works like a "hotkey binding" system with the following features:
 
-a tree-based structure from the command word, with the ability to create aliasses.
+- A tree-based command structure with alias support
+- Prefix words that prepend to the matched command regardless of position
+- Suffix words that append to the matched command regardless of position
+- Immediate triggers that fire on exact utterance matches
 
-next to that, option to have words that are prefixes, which will prefix something to the string regardless of where in the phrase you say it, suffixes, which work the same but append instead of prefix and immediate triggers, which will immediately run based on a single word. 
+For example, if the wake word is "system command" and the user says
+"system command, open firefox", the system walks down the tree from "open"
+to "firefox", then executes the configured action.
 
-for example, if the command word is "system command" and the user says "system command, open firefox". the system would trigger and walk down the tree, going down to the "open" keyword, and then looking at the branches under that for "firefox", then under firefox there's just one node, which is an exec node that contains the command to open firefox. 
+The wake word is configurable.
 
-the command word should also be configurable. 
-
-we can use python and GTK framework for the UI. 
-
+Implementation: Python with GTK (PyGObject) for the UI, whisper-server
+(whisper.cpp) for offline speech-to-text.

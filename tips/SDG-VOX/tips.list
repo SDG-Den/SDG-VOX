@@ -1,0 +1,7 @@
+[SDG-VOX Tips]: Did you know? Say 'system command' (or 'cmd', 'computer', 'i cast', or 'highcast') followed by your command to activate voice control. Customize wake words in the Settings dialog of the config GUI.
+[SDG-VOX Tips]: Did you know? You can say 'open firefox' to launch apps, 'volume up' to adjust audio, 'search for cats' to search the web, or 'type hello world' to type text. Natural filler words like 'the' and 'please' are ignored.
+[SDG-VOX Tips]: Did you know? Ensure your microphone is working by running 'pactl info' and checking the Default Source. SDG-VOX captures audio via GStreamer and PipeWire with automatic voice activity detection.
+[SDG-VOX Tips]: Did you know? After your first command, you have a 3-second grace period to speak another without repeating the wake word. Look for the HUD overlay confirmation.
+[SDG-VOX Tips]: Did you know? Use 'administrator' before any command to run it with sudo, or say 'background' after a command to run it in the background. Other modifiers: 'silent' (suppress output) and 'detach' (detach from terminal).
+[SDG-VOX Tips]: Did you know? Run 'sdgvox config' to open the GTK configuration editor with a visual flowchart of your command graph. Drag to connect nodes and edit commands visually.
+[SDG-VOX Tips]: Did you know? The daemon shows a transparent HUD overlay with real-time transcriptions at the top of your screen. Use 'sdgvox daemon --headless' to run without it.

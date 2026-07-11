@@ -4,7 +4,7 @@ Wake-word activated, fully offline voice commands with a flat directed-graph bin
 
 - **Daemon mode** — always-listening background service with a transparent HUD overlay
 - **Config mode** — GTK graph editor with a Cairo-rendered flowchart (DAG layout, pan/zoom)
-- **Offline STT** — Vosk speech recognition, runs locally
+- **Offline STT** — whisper-server (whisper.cpp), runs locally
 - **Three action types** — `exec`, `shell_exec`, `type`
 
 ## Quick start
@@ -12,9 +12,6 @@ Wake-word activated, fully offline voice commands with a flat directed-graph bin
 ```sh
 # Install system + Python dependencies (detects package manager)
 ./install.sh
-
-# On Arch Linux you can also install vosk directly via pacman:
-#   sudo pacman -S vosk-api python-vosk
 
 # Open the configuration GUI to build your command graph
 vox config
@@ -25,7 +22,7 @@ vox daemon
 
 ## How it works
 
-You speak a **wake word** (default: `"system command"`) followed by a command, e.g. `"system command, open firefox"`. The daemon transcribes continuously via Vosk, detects the wake word, strips it, then walks the command graph to find a matching action.
+You speak a **wake word** (default: `"system command"`) followed by a command, e.g. `"system command, open firefox"`. The daemon transcribes continuously via whisper-server, detects the wake word, strips it, then walks the command graph to find a matching action.
 
 ### Matching algorithm — skip-based
 
@@ -192,7 +189,7 @@ All fields:
 |---|---|---|---|
 | `wake_word` | string | `"system command"` | Wake phrase to trigger command processing |
 | `wake_word_aliases` | array of strings | `[]` | Alternative wake phrases (e.g. `"cmd"`, `"computer"`) |
-| `terminal` | string | `"gnome-terminal"` | Terminal for `shell_exec` actions |
+| `terminal` | string | `"ghostty"` | Terminal for `shell_exec` actions |
 | `prefixes` | array of `AffixRule` | `[]` | Words that prepend to the matched command (detected anywhere) |
 | `suffixes` | array of `AffixRule` | `[]` | Words that append to the matched command (detected anywhere) |
 | `immediate_triggers` | array of `Trigger` | `[]` | Whole-utterance commands (no graph walk) |
@@ -230,9 +227,13 @@ All fields:
 |---|---|---|---|
 | Python bindings | `PyGObject` | `python-gobject` | `python3-gi` |
 | Audio capture | `GStreamer` | `gst-plugins-base`, `gst-plugins-good` | `gir1.2-gstreamer-1.0`, `gstreamer1.0-plugins-good` |
-| Speech-to-text | `vosk` | `vosk-api` + `python-vosk` | `pip install vosk` |
+| Speech-to-text | whisper-server (whisper.cpp) | `whisper-cpp-vulkan` or `gst-plugin-whisper` | — |
 | Keyboard typing | `ydotool` | `ydotool` | `ydotool` |
 | Audio server | `pipewire` (or `pulseaudio`) | `pipewire` + `pipewire-pulse` | `pipewire` + `pipewire-pulse` |
+| Wayland overlay | `gtk-layer-shell` | `gtk-layer-shell` | `gtk-layer-shell` |
+
+A whisper model (`ggml-medium.en.bin`, ~1.5 GB) is auto-downloaded on first
+`vox daemon` from Hugging Face (ggerganov/whisper.cpp).
 
 ## File structure
 
@@ -241,14 +242,15 @@ All fields:
 ├── install.sh           # Setup script
 ├── config.json          # User command graph (flat node map)
 ├── pyproject.toml       # Python package config
-├── models/              # Vosk model files (auto-downloaded)
+├── models/              # Whisper model files (auto-downloaded)
 └── vox/
     ├── __init__.py      # Package version
     ├── __main__.py      # Entry point for `python -m vox`
     ├── cli.py           # Argument parser (vox daemon / vox config)
     ├── daemon.py        # Main loop — wires capture → recognizer → matcher → executor → overlay
     ├── audio_capture.py # GStreamer mic capture (pipewire / pulseaudio)
-    ├── recognizer.py    # Vosk STT + wake word detection
+    ├── whisper_recognizer.py # Whisper-server STT + wake word detection
+├── recognizer.py       # Legacy Vosk recognizer (dead code, kept for reference)
     ├── command_tree.py  # Skip-based directed-graph matching engine with auto-follow
     ├── executor.py      # exec / shell_exec / type action dispatcher
     ├── overlay.py       # Transparent GTK HUD overlay

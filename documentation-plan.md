@@ -1,7 +1,25 @@
 # SDG-VOX Documentation Plan
 
 ## Current Status
-No documentation exists. Package is a minimal placeholder with a single install.sh that only installs packages using unipkg.
+Four doc files exist — but two have outdated `-updated.md` duplicates that need merging. Zero tips exist.
+
+## Source-Verified Inventory
+**Components:**
+- Voice control system using whisper-server (NOT Vosk — the original README.md is outdated)
+- Architecture: daemon mode (always-listening) + config GUI mode
+- Wake word detection with 3-second WAKE_TIMEOUT
+- Command graph with skip-based matching algorithm
+- Node types: branch, exec, shell_exec, type
+- Prefix/suffix modifiers: sudo (`administrator`), setsid (`silent`, `background`), & (`detach`)
+- GTK config GUI with Cairo flowchart view, node editor, settings dialog
+- Headless mode (`--headless` flag)
+- Dependencies: ghostty (not gnome-terminal), gtk-layer-shell, whistle-server model (ggml-medium.en.bin, ~1.5GB)
+
+### Outdated Files to Merge
+| Outdated File | New Content to Merge |
+|--------------|---------------------|
+| `README.md` (Vosk, gnome-terminal) | `README-updated.md` (whisper-server, ghostty, gtk-layer-shell) |
+| `CONCEPT.md` (old notes) | `CONCEPT-updated.md` (updated concept with whisper-server) |
 
 ## Docs System (`docs/`)
 **Deploy location**: `~/.local/docs/SDG-VOX/`
@@ -9,26 +27,32 @@ No documentation exists. Package is a minimal placeholder with a single install.
 ### Planned Doc Topics
 | # | Topic | Description | Priority |
 |---|-------|-------------|----------|
-| 1 | Voice Control Setup | Prerequisites (voice models, wake word engines, microphone config) | High |
-| 2 | Commands Reference | Available voice commands and phrase patterns | High |
-| 3 | Wake Word Configuration | Configuring wake word detection | Medium |
-| 4 | Integration | How voice commands interact with SDG-MANGO-CORE and DMS | Low |
+| 1 | Voice Control Setup | Installation, dependencies (whisper model ~1.5GB), mic config, first run | High |
+| 2 | Commands Reference | Command graph, skip-based matching, node types, shared sub-graphs, prefixes/suffixes | High |
+| 3 | Wake Word Configuration | Wake words (from config.json:127-132), 3-second timeout, hotword sensitivity | High |
+| 4 | Integration | config GUI, daemon overlay, headless mode, config.json format, keybinds | Medium |
 
-### Implementation
-- Create `docs/SDG-VOX/` directory with markdown files
-- Follow SDG-DOCS naming convention
-- Register in `install.sh` for deployment to `~/.local/docs/`
+### Existing Content
+| File | Notes |
+|------|-------|
+| `README.md` | 258 lines — thorough but references Vosk (DEPRECATED) |
+| `README-updated.md` | 180 lines — updated to whisper-server. Merge into README.md |
+| `CONCEPT.md` | 15 lines — early concept notes |
+| `CONCEPT-updated.md` | 20 lines — updated concept. Merge into CONCEPT.md |
 
 ## Tips System (`tips/`)
 **Deploy location**: `~/.local/tips/SDG-VOX/`
 
 ### Planned Tips
-| # | Tip | Description | Priority |
-|---|-----|-------------|----------|
-| 1 | Wake word | Say the configured wake word to activate voice control | High |
-| 2 | Voice commands | "open terminal", "lock screen", "increase volume" — natural language | High |
-| 3 | Mic setup | Ensure microphone is working for voice control | Medium |
+| # | Tip | Priority |
+|---|-----|----------|
+| 1 | Activate wake word to start voice commands | High |
+| 2 | Use `administrator` prefix for sudo commands | High |
+| 3 | Open the config GUI to manage voice profiles | Medium |
+| 4 | Use headless mode for background operation | Low |
 
-### Implementation
-- Create `tips/SDG-VOX/tips.list` with the above tips
-- Register in `install.sh` for deployment to `~/.local/tips/`
+## Implementation Notes
+- CRITICAL: Merge `README-updated.md` → `README.md` (adopt whisper-server, ghostty, gtk-layer-shell) then delete `README-updated.md`
+- Merge `CONCEPT-updated.md` → `CONCEPT.md` then delete `CONCEPT-updated.md`
+- Tips in `tips/SDG-VOX/tips.list`
+- Source code for command reference is in `config/SDG-VOX/config.json` and `local/SDG-VOX/` Python files
