@@ -2,7 +2,7 @@ Package Name: sdg-vox
 Descriptive Name: SDG Voice Command System
 Source: https://github.com/SDG-Den/SDG-VOX
 Maintainer: SDGDen
-Version:0.2
+Version:0.2.1
 
 Dependencies: 
 python3 (>=3.10), python3-gobject, python3-cairo, gst-plugins-base, gst-plugins-good, gtk-layer-shell, pipewire, pipewire-pulse, ydotool, whisper.cpp (whisper-server)

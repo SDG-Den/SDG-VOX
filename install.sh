@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ### dependencies
-unipkg install any python3-gobject
-unipkg install any python3-cairo
+unipkg install any python-gobject
+unipkg install any python-cairo
 unipkg install any gst-plugins-base
 unipkg install any gst-plugins-good
 unipkg install any gtk-layer-shell
