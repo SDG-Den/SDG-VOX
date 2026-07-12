@@ -1,7 +1,7 @@
 Package Name: sdg-vox
 Descriptive Name: SDG Voice Command System
-Source: https://git.sdgcloud.nl/SDGDen/SDG-VOX
-Maintainer: SDGDen <sdgden@sdgcloud.nl>
+Source: https://github.com/SDG-Den/SDG-VOX
+Maintainer: SDGDen
 Version:0.2
 
 Dependencies: 
