@@ -1,5 +1,7 @@
 # Architecture
 
+> This page describes the internal architecture for developers. For setup instructions and everyday usage, see [Setup & First Run](102-setup.md) or the [Quick Reference](000-quick-reference.md).
+
 ## Pipeline overview
 
 Audio capture → VAD segmentation → whisper-server STT → wake word detection → graph matching → action execution → HUD overlay feedback
@@ -23,19 +25,19 @@ Audio capture → VAD segmentation → whisper-server STT → wake word detectio
 
 ## Modules
 
-| Module | Lines | Responsibility |
-|--------|-------|----------------|
-| `audio_capture.py` | 100 | GStreamer pipeline capturing mic audio at 16 kHz S16LE mono. Tries `pipewiresrc` first, falls back to `pulsesrc`. Pushes raw PCM bytes to a callback. |
-| `whisper_recognizer.py` | 314 | Manages whisper-server subprocess. Runs VAD (RMS threshold 300) to segment speech. Sends WAV segments to whisper-server HTTP API at `127.0.0.1:18081/inference`. Produces partial (every 300ms during speech) and final (after 800ms silence) transcriptions. Handles wake word detection and 3-second wake state timeout. Includes health-check watchdog and auto-restart. |
-| `command_tree.py` | 226 | Skip-based directed-graph matching engine. Strips wake word, scans for prefix/suffix modifiers, matches immediate triggers, walks the graph from root connections. Returns `MatchResult` objects with action type, command, captured text, and prefix/suffix. |
-| `executor.py` | 60 | Dispatches matched actions: `subprocess.Popen(cmd, shell=True)` for exec, terminal + `bash -c` for shell_exec, `ydotool type` for type actions. Substitutes `{text}` and `{url_text}` placeholders. Applies prefix/suffix modifiers. |
-| `daemon.py` | 183 | Wires everything together in a `GLib.MainLoop`. Starts capture → recognizer → overlay. Polls config.json every second for hot-reload. Runs 30-second watchdog for whisper-server health. Handles SIGINT/SIGTERM for clean shutdown. |
-| `overlay.py` | 107 | Transparent GTK window in the compositor's `OVERLAY` layer via `gtk-layer-shell`. Shows real-time transcriptions and matched actions. Auto-hides after configurable timeout. |
-| `config_manager.py` | 217 | Loads/saves `config.json` with migration from old graph format. |
-| `config_ui.py` | ~1229 | GTK config editor window with toolbar, node property editor, settings dialog, and test dialog. |
-| `flowchart_view.py` | 809 | Cairo-rendered interactive DAG viewer/editor. Layered BFS layout, color-coded node types, pan/zoom, drag-to-connect. |
-| `cli.py` | 38 | `argparse` entry point: `vox daemon [--headless]`, `vox config`, `--config PATH`. |
-| `models.py` | 68 | Dataclasses: `GraphNode`, `Config`, `ImmediateTrigger`, `AffixRule`. |
+| Module | Responsibility |
+|--------|----------------|
+| `audio_capture.py` | GStreamer pipeline capturing mic audio, tries `pipewiresrc` first, falls back to `pulsesrc`. Pushes raw PCM bytes to a callback. |
+| `whisper_recognizer.py` | Manages whisper-server subprocess. Runs VAD to segment speech, sends WAV segments to whisper-server HTTP API. Produces partial and final transcriptions. Handles wake word detection and wake state timeout. Includes health-check watchdog and auto-restart. |
+| `command_tree.py` | Skip-based directed-graph matching engine. Strips wake word, scans for prefix/suffix modifiers, matches immediate triggers, walks the graph from root connections. Returns `MatchResult` objects with action type, command, captured text, and prefix/suffix. |
+| `executor.py` | Dispatches matched actions via subprocess, terminal, or ydotool. Substitutes `{text}` and `{url_text}` placeholders. Applies prefix/suffix modifiers. |
+| `daemon.py` | Wires everything together in a `GLib.MainLoop`. Starts capture → recognizer → overlay. Polls config for hot-reload. Runs watchdog for whisper-server health. Handles clean shutdown. |
+| `overlay.py` | Transparent GTK window in the compositor's `OVERLAY` layer. Shows real-time transcriptions and matched actions. Auto-hides after configurable timeout. |
+| `config_manager.py` | Loads/saves `config.json` with migration from old graph format. |
+| `config_ui.py` | GTK config editor window with toolbar, node property editor, settings dialog, and test dialog. |
+| `flowchart_view.py` | Cairo-rendered interactive DAG viewer/editor. Layered BFS layout, color-coded node types, pan/zoom, drag-to-connect. |
+| `cli.py` | Entry point handling daemon and config commands. |
+| `models.py` | Dataclasses: `GraphNode`, `Config`, `ImmediateTrigger`, `AffixRule`. |
 
 ## Data flow
 

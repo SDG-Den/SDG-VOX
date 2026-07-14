@@ -2,7 +2,7 @@
 
 ## The command graph
 
-The default `config.json` contains 48 nodes forming a directed graph. Each node has a **trigger** (the word(s) spoken to reach it), a **type** (branch/exec/shell_exec/type), and optional **connections** to child nodes.
+The default `config.json` contains nodes forming a directed graph. Each node has a **trigger** (the word(s) spoken to reach it), a **type** (branch/exec/shell_exec/type), and optional **connections** to child nodes.
 
 ## Node types
 

@@ -1,5 +1,6 @@
 # Index
 
+- [000-quick-reference](000-quick-reference.md) — Cheat sheet of wake words, commands, and modifiers
 - [101-architecture](101-architecture.md) — Voice pipeline architecture overview
 - [102-setup](102-setup.md) — Setup and first run dependencies and configuration
 - [201-commands](201-commands.md) — Voice command reference and command graph
