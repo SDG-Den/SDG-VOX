@@ -13,27 +13,11 @@
 | Wayland overlay | `gtk-layer-shell` | `gtk-layer-shell` |
 | Terminal | `ghostty` (or your preferred terminal) | `ghostty` |
 
-On SDG-OS, all dependencies are handled automatically:
+When installed via sdgpkg, dependencies are installed automatically:
 
 ```bash
 sdgpkg install sdg-vox
 ```
-
-Manual installation:
-
-```bash
-./install.sh
-```
-
-The install script:
-1. Installs system dependencies via `unipkg`
-2. Copies source files to `~/.local/SDG-VOX/`
-3. Copies docs to `~/.local/docs/SDG-VOX/`
-4. Copies tips to `~/.local/tips/SDG-VOX/`
-5. Copies default config to `~/.config/SDG-VOX/config.json` (only if not existing)
-6. Installs the `.desktop` file for the config GUI
-7. Symlinks `vox.sh` to `/usr/bin/sdgvox`
-8. Downloads the Whisper model (~1.5 GB) to `~/.cache/SDG-VOX/models/`
 
 ## Whisper model
 
@@ -72,7 +56,7 @@ parec --rate=16000 --format=s16le --channels=1 | hexdump -C | head
 
 ```bash
 # 1. Install
-./install.sh
+sdgpkg install sdg-vox
 
 # 2. (Optional) Open the config GUI to customize commands
 sdgvox config
@@ -103,15 +87,3 @@ After your first command, you have 3 seconds to speak another command without re
 ## Stopping the daemon
 
 Press `Ctrl+C` in the terminal where the daemon is running, or send SIGINT/SIGTERM.
-
-## Updating
-
-```bash
-./update.sh
-```
-
-## Uninstalling
-
-```bash
-./uninstall.sh
-```

@@ -12,9 +12,9 @@ vox --config /path/to/config.json config
 
 ## Window layout
 
-The GUI is a GTK window split into two panels:
+The GUI is a GTK window split into two areas:
 
-### Left panel — Flowchart view
+### Flowchart view — main area
 
 A Cairo-rendered interactive directed graph showing all nodes and their connections:
 
@@ -39,9 +39,9 @@ A Cairo-rendered interactive directed graph showing all nodes and their connecti
 
 Connections are drawn as curved edges with arrowheads. Selected nodes are highlighted.
 
-### Right panel — Node editor
+### Node editor — bottom panel
 
-When a node is selected, its properties are shown:
+When a node is selected, its properties are shown in the bottom panel:
 
 | Field | Description |
 |-------|-------------|
@@ -51,7 +51,7 @@ When a node is selected, its properties are shown:
 | **Text capture** | Toggle — when on, remaining utterance tokens after the trigger are captured into `{text}` |
 | **Connections** | Comma-separated list of child node names |
 
-At the bottom of the right panel:
+At the bottom of the node editor:
 
 - **Root connections** — list of entrypoint node names that the wake word routes to
 

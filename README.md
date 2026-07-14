@@ -10,7 +10,7 @@ SDG-VOX uses `whisper.cpp` for speech-to-text and a tree-based command graph to 
 
 - **Wake-word activation** — "system command", "cmd", "computer", "i cast", "highcast"
 - **3-second grace** — speak follow-up commands without repeating wake word
-- **48-node command graph** — launch/open, quit, clipboard, volume, search, type, run, execute, dictate
+- **Command graph** — launch/open, quit, clipboard, volume, search, type, run, execute, dictate
 - **Prefix/suffix modifiers** — "administrator" (sudo), "silent" (detached), "background" (&), "detach"
 - **HUD overlay** — transparent GTK overlay showing transcriptions
 - **Config editor** — GTK GUI with flowchart view, drag-to-connect nodes, command testing
@@ -53,4 +53,4 @@ sdgpkg install sdg-vox
 
 ## Related Packages
 
-- **SDG-MANGO-CORE** — could bind sdgvox to a key
+- **SDG-MANGO-CORE** — sdgvox can be bound to a key
