@@ -44,7 +44,7 @@ sdgpkg install sdg-vox
 
 ## Dependencies
 
-- `python3` (>=3.10), `python3-gobject`, `python3-cairo`
+- `python`, `python-gobject`, `python-cairo`
 - `gst-plugins-base`, `gst-plugins-good` — audio capture
 - `gtk-layer-shell` — Wayland overlay
 - `pipewire`, `pipewire-pulse` — audio
