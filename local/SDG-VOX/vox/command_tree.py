@@ -14,7 +14,7 @@ from .models import Config, GraphNode
 
 ACTION_TYPES = {"exec", "shell_exec", "type"}
 
-# Punctuation that Vosk sometimes inserts (commas, periods, etc.)
+# Punctuation that whisper.cpp sometimes inserts (commas, periods, etc.)
 _PUNCTUATION = ",.!?;:"
 
 

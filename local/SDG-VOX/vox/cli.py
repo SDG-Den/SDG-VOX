@@ -30,7 +30,7 @@ def main() -> None:
     config_path = args.config or default_config_path()
 
     if args.mode == "daemon":
-        # Lazy import — vosk is only needed for daemon mode.
+        # Lazy import — whisper is only needed for daemon mode.
         from .daemon import run_daemon
         run_daemon(config_path, headless=args.headless)
     elif args.mode == "config":

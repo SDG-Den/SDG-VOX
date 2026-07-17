@@ -87,16 +87,6 @@ SDG-VOX does not include a built-in keybinding system. Integrate with your windo
 bind = SUPER+V, exec, sdgvox daemon --headless
 ```
 
-## SDG-MANGO-CORE integration
-
-SDG-MANGO-CORE can trigger `sdgvox` daemon start/stop. Suggested bindings:
-
-| Action | Command |
-|--------|---------|
-| Start daemon | `sdgvox daemon --headless` |
-| Open config | `sdgvox config` |
-| Toggle listening | The `cancel` immediate trigger aborts current command |
-
 ## File structure
 
 ```

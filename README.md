@@ -52,5 +52,3 @@ sdgpkg install sdg-vox
 - `ydotool` — keystroke injection
 
 ## Related Packages
-
-- **SDG-MANGO-CORE** — sdgvox can be bound to a key

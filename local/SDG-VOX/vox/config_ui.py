@@ -295,15 +295,15 @@ class ConfigUI:
 
         ┌──────────────────────────────────────────────────────────────┐
         │  Toolbar: Save | Settings | New Node | Validate | Daemon     │
-        ├───────────────────────────┬──────────────────────────────────┤
-        │  Flowchart View           │  Node Properties                │
-        │  (colour-coded,           │  Trigger: [______________]       │
-        │   drag to connect)        │  Name: [______________]          │
-        │                           │  Type: [branch  v]  [?]         │
-        │                           │  Command: [______________]       │
-        │                           │  [+ Add node]  [Delete node]    │
-        ├───────────────────────────┴──────────────────────────────────┤
-        │  Root connections: [child1] [−] [+]                          │
+        ├──────────────────────────────────────────────────────────────┤
+        │  Flowchart View                                              │
+        │  (colour-coded, draggable nodes, drag-to-connect)            │
+        ├──────────────────────────────────────────────────────────────┤
+        │  Node Properties                                             │
+        │  Trigger: [______________]  Name: [______________]           │
+        │  Type: [branch  v]  [?]  Command: [______________]          │
+        │  Wake word / Aliases (root only)   Text capture: [ ]        │
+        │  [+ Add node]  [Delete node]                                 │
         └──────────────────────────────────────────────────────────────┘
     """
 

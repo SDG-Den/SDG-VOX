@@ -55,6 +55,8 @@ At the bottom of the node editor:
 
 - **Root connections** — list of entrypoint node names that the wake word routes to
 
+For root nodes, the node editor also shows **Wake word** and **Aliases** fields (one alias per line).
+
 A `?` help button appears next to every setting, explaining what it does.
 
 ### Toolbar
@@ -62,7 +64,7 @@ A `?` help button appears next to every setting, explaining what it does.
 | Button | Action |
 |--------|--------|
 | **Save** | Writes the current graph to `config.json` |
-| **Settings** | Opens the Settings dialog (4 tabs, see below) |
+| **Settings** | Opens the Settings dialog (3 tabs, see below) |
 | **New node** | Adds a new branch node at a default position |
 | **Validate** | Checks the graph for errors (missing connections, invalid names, etc.) |
 | **Help** | Opens a help dialog explaining the GUI |
@@ -75,22 +77,15 @@ A `?` help button appears next to every setting, explaining what it does.
 
 ## Settings dialog
 
-A four-tab modal dialog for global configuration:
+A three-tab modal dialog for global configuration:
 
-### Tab 1 — Wake Word
-
-| Field | Description |
-|-------|-------------|
-| **Wake phrase** | The main wake word (default: `system command`) |
-| **Aliases** | Alternative wake phrases (one per line). Default: `cmd`, `computer`, `i cast`, `highcast` |
-
-### Tab 2 — Terminal
+### Tab 1 — Terminal
 
 | Field | Description |
 |-------|-------------|
 | **Terminal command** | Terminal emulator used for `shell_exec` actions (default: `ghostty -e`) |
 
-### Tab 3 — Filters
+### Tab 2 — Filters
 
 Inline-editable tables for prefix and suffix rules:
 
@@ -100,7 +95,7 @@ Inline-editable tables for prefix and suffix rules:
 | **Prepend** | String prepended to the matched command |
 | **Append** | String appended to the matched command |
 
-### Tab 4 — Triggers
+### Tab 3 — Triggers
 
 Immediate trigger table:
 
